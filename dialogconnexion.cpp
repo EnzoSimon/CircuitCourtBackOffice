@@ -22,7 +22,9 @@ void DialogConnexion::on_pushButtonSeConnecter_clicked()
     mdp = ui->lineEditMdp->text();
 
     QString requeteConnexion;
-    requeteConnexion="SELECT COUNT(*) FROM Employe WHERE login=''";
+    requeteConnexion="SELECT COUNT(*) "
+                     "FROM Employe "
+                     "WHERE login=''";
     accept();
 }
 
