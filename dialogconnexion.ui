@@ -6,12 +6,51 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>366</width>
-    <height>316</height>
+    <width>558</width>
+    <height>328</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Quicksand</family>
+    <pointsize>-1</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>BackOffice Connexion</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">*{
+	font-family: Quicksand;
+	font-size: 14px;
+}
+QLineEdit{
+max-width: 250px;
+}
+QLabel{
+min-width: 80px;
+}
+QPushButton{
+	width: 150px;
+	padding: 10px 0;
+	border-radius: 19;
+	font-size: 15px;
+	font-weight: 700;
+	background-color: #aac9f0;
+	border: 2px solid #4689db;
+	color: #242424;
+}
+
+QPushButton:hover{
+	background-color: #8199b8;
+	border: 2px solid #2b578c;
+}
+
+QLineEdit {
+	border-radius: 15;
+	border: 2px solid #4689db;
+	padding: 5px;
+}</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -32,7 +71,10 @@
      <item>
       <widget class="QLabel" name="label_3">
        <property name="styleSheet">
-        <string notr="true">font-size : 30px; color : #4e66ad;</string>
+        <string notr="true">font-size : 30px; 
+color : #4689db;
+font-weight: 700;
+</string>
        </property>
        <property name="text">
         <string>Connectez vous</string>
@@ -68,6 +110,46 @@
     </spacer>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <spacer name="horizontalSpacer_11">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelIncorrect">
+       <property name="styleSheet">
+        <string notr="true">color: red; </string>
+       </property>
+       <property name="text">
+        <string>-- Login ou Mot de passe incorrect --</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_10">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <spacer name="horizontalSpacer_3">
@@ -90,7 +172,17 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEditLogin"/>
+      <widget class="QLineEdit" name="lineEditLogin">
+       <property name="inputMask">
+        <string/>
+       </property>
+       <property name="text">
+        <string>admin</string>
+       </property>
+       <property name="placeholderText">
+        <string>Entrer le login ...</string>
+       </property>
+      </widget>
      </item>
      <item>
       <spacer name="horizontalSpacer_4">
@@ -134,8 +226,14 @@
        <property name="toolTipDuration">
         <number>-8</number>
        </property>
+       <property name="text">
+        <string>admin</string>
+       </property>
        <property name="echoMode">
         <enum>QLineEdit::Password</enum>
+       </property>
+       <property name="placeholderText">
+        <string>Entrer le mot de passe ...</string>
        </property>
       </widget>
      </item>
@@ -207,6 +305,9 @@
        <property name="text">
         <string>Se connecter</string>
        </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -223,6 +324,19 @@
       </spacer>
      </item>
     </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>

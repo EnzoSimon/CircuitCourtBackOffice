@@ -14,16 +14,18 @@ class DialogConnexion : public QDialog
 public:
     explicit DialogConnexion(QWidget *parent = nullptr);
     ~DialogConnexion();
+    QString getNom();
+    QString getPrenom();
+
 
 private slots:
     void on_pushButtonSeConnecter_clicked();
 
     void on_pushButtonAnnuler_clicked();
-
-    QString login, mdp;
-
 private:
     Ui::DialogConnexion *ui;
+    QString login, mdp;
+    QString nom,prenom;
 };
 
 #endif // DIALOGCONNEXION_H

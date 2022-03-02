@@ -23,7 +23,11 @@ int main(int argc, char *argv[])
     DialogConnexion connexion;
     if(connexion.exec()==QDialog::Accepted)
     {
-        MainWindow w;
+        QString nomEmploye,prenomEmploye;
+        nomEmploye=connexion.getNom();
+        prenomEmploye=connexion.getPrenom();
+
+        MainWindow w(nomEmploye,prenomEmploye);
         w.show();
         return a.exec();
     }

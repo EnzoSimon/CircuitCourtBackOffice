@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTableWidget>
 
 namespace Ui {
 class MainWindow;
@@ -12,11 +13,19 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QString nom,QString prenom,QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
-    void on_connexion_clicked();
+
+    void afficheTableauProducteur();
+    void afficheTableauProducteurVerifies();
+
+    void on_pushButtonVerifierProducteur_clicked();
+
+    void on_tableWidgetTousProducteurs_cellClicked(int row, int column);
+
+    void on_pushButtonModifierProducteur_clicked();
 
 private:
     Ui::MainWindow *ui;
