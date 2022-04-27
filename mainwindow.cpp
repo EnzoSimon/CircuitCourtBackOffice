@@ -38,6 +38,8 @@ MainWindow::~MainWindow()
 
 }
 
+
+
 void MainWindow::afficheTableauProducteur()
 {
     qDebug()<<"void MainWindow::afficheTableauProducteur()";
@@ -388,7 +390,8 @@ void MainWindow::remplirComboVarieteDeProduit()
 void MainWindow::on_pushButtonVerifierProducteur_clicked()
 {
     QString maRequeteVerificationProducteur;
-    maRequeteVerificationProducteur = "UPDATE Producteur SET validiteProducteur=1 WHERE numeroProducteur="+ui->tableWidgetNonVerifies->item(ui->tableWidgetNonVerifies->currentRow(),0)->text();
+    maRequeteVerificationProducteur = "UPDATE Producteur SET validiteProducteur=1 "
+                                      "WHERE numeroProducteur="+ui->tableWidgetNonVerifies->item(ui->tableWidgetNonVerifies->currentRow(),0)->text();
     qDebug()<<maRequeteVerificationProducteur;
     QSqlQuery maRequete(maRequeteVerificationProducteur);
 
@@ -482,7 +485,8 @@ void MainWindow::on_tableWidgetNonVerifies_cellClicked(int row, int column)
 void MainWindow::on_tableWidgetRayons_cellClicked(int row, int column)
 {
     QString requeteImageTxt;
-    requeteImageTxt="SELECT imgRayon FROM Rayon WHERE numeroRayon="+ui->tableWidgetRayons->item(ui->tableWidgetRayons->currentRow(),0)->text();
+    requeteImageTxt="SELECT imgRayon FROM Rayon "
+                    "WHERE numeroRayon="+ui->tableWidgetRayons->item(ui->tableWidgetRayons->currentRow(),0)->text();
     QSqlQuery requeteImage(requeteImageTxt);
     requeteImage.next();
 
@@ -585,11 +589,13 @@ void MainWindow::on_pushButtonAjouterRayon_clicked()
 
 void MainWindow::on_pushButtonRechercheImage_clicked()
 {
+    //J'ouvre un QFileDialog
     QString fileName = QFileDialog::getOpenFileName(this,
         tr("Selectionnez l'image"), "/home", tr("Image Files (*.jpeg .jpg .png)"));
 
     ui->lineEditCheminImageRayon->setText(fileName);
 
+    //J'affiche le lien dans le lineEdit pour l'insérer dans la base
     ui->labelImage->setPixmap(QPixmap(fileName));
 
     //ui->labelImage->setProperty("sourceImage",fileName);
@@ -655,7 +661,6 @@ void MainWindow::on_pushButtonAjouterProduit_clicked()
         ui->statusBar->setStyleSheet("color: #eb3131; font-weight: 700;");
         ui->statusBar->showMessage("Remplissez les champs :)",3000);
     }
-
 }
 
 
@@ -693,14 +698,33 @@ void MainWindow::on_comboBoxTypeEmploye_currentTextChanged(const QString &arg1)
     //création de la requête d'affichage pour le tableau
     QString maRequeteTableau;
 
+    //Requête en fonction du type choisi
     if(ui->comboBoxTypeEmploye->currentText() == "Tous les types"){
-        maRequeteTableau = "SELECT numeroEmploye,loginEmploye,nomEmploye,prenomEmploye,villeEmploye,rueEmploye,codePostalEmploye,mailEmploye,telEmploye,TypeEmploye.numeroTypeEmploye,TypeEmploye.libelleTypeEmploye FROM Employe INNER JOIN TypeEmploye ON Employe.numeroTypeEmploye=TypeEmploye.numeroTypeEmploye";
+        maRequeteTableau = "SELECT numeroEmploye,loginEmploye,nomEmploye,prenomEmploye,villeEmploye,"
+                           "rueEmploye,codePostalEmploye,mailEmploye,telEmploye,TypeEmploye.numeroTypeEmploye,"
+                           "TypeEmploye.libelleTypeEmploye FROM Employe INNER JOIN TypeEmploye ON "
+                           "Employe.numeroTypeEmploye=TypeEmploye.numeroTypeEmploye";
+
     }else if(ui->comboBoxTypeEmploye->currentText() == "Modérateur"){
-        maRequeteTableau = "SELECT numeroEmploye,loginEmploye,nomEmploye,prenomEmploye,villeEmploye,rueEmploye,codePostalEmploye,mailEmploye,telEmploye,TypeEmploye.numeroTypeEmploye,TypeEmploye.libelleTypeEmploye FROM Employe INNER JOIN TypeEmploye ON Employe.numeroTypeEmploye=TypeEmploye.numeroTypeEmploye WHERE TypeEmploye.numeroTypeEmploye=1";
+        maRequeteTableau = "SELECT numeroEmploye,loginEmploye,nomEmploye,prenomEmploye,villeEmploye,"
+                           "rueEmploye,codePostalEmploye,mailEmploye,telEmploye,TypeEmploye.numeroTypeEmploye,"
+                           "TypeEmploye.libelleTypeEmploye FROM Employe INNER JOIN TypeEmploye ON "
+                           "Employe.numeroTypeEmploye=TypeEmploye.numeroTypeEmploye "
+                           "WHERE TypeEmploye.numeroTypeEmploye=1";
+
     }else if(ui->comboBoxTypeEmploye->currentText() == "Administrateur"){
-        maRequeteTableau = "SELECT numeroEmploye,loginEmploye,nomEmploye,prenomEmploye,villeEmploye,rueEmploye,codePostalEmploye,mailEmploye,telEmploye,TypeEmploye.numeroTypeEmploye,TypeEmploye.libelleTypeEmploye FROM Employe INNER JOIN TypeEmploye ON Employe.numeroTypeEmploye=TypeEmploye.numeroTypeEmploye WHERE TypeEmploye.numeroTypeEmploye=2";
+        maRequeteTableau = "SELECT numeroEmploye,loginEmploye,nomEmploye,prenomEmploye,villeEmploye,"
+                           "rueEmploye,codePostalEmploye,mailEmploye,telEmploye,TypeEmploye.numeroTypeEmploye,"
+                           "TypeEmploye.libelleTypeEmploye FROM Employe INNER JOIN TypeEmploye "
+                           "ON Employe.numeroTypeEmploye=TypeEmploye.numeroTypeEmploye "
+                           "WHERE TypeEmploye.numeroTypeEmploye=2";
+
     }else if(ui->comboBoxTypeEmploye->currentText() == "Super-Administrateur"){
-        maRequeteTableau = "SELECT numeroEmploye,loginEmploye,nomEmploye,prenomEmploye,villeEmploye,rueEmploye,codePostalEmploye,mailEmploye,telEmploye,TypeEmploye.numeroTypeEmploye,TypeEmploye.libelleTypeEmploye FROM Employe INNER JOIN TypeEmploye ON Employe.numeroTypeEmploye=TypeEmploye.numeroTypeEmploye WHERE TypeEmploye.numeroTypeEmploye=3";
+        maRequeteTableau = "SELECT numeroEmploye,loginEmploye,nomEmploye,prenomEmploye,villeEmploye,"
+                           "rueEmploye,codePostalEmploye,mailEmploye,telEmploye,TypeEmploye.numeroTypeEmploye,"
+                           "TypeEmploye.libelleTypeEmploye FROM Employe INNER JOIN TypeEmploye "
+                           "ON Employe.numeroTypeEmploye=TypeEmploye.numeroTypeEmploye "
+                           "WHERE TypeEmploye.numeroTypeEmploye=3";
     }
 
     qDebug()<<maRequeteTableau;
@@ -782,7 +806,9 @@ void MainWindow::on_comboBoxEmploye_currentTextChanged(const QString &arg1)
     ui->comboBoxChangerTypeUtilisateur->clear();
 
     QString maRequeteTableauGestionEmploye;
-    maRequeteTableauGestionEmploye="SELECT Employe.numeroEmploye, Employe.loginEmploye, Employe.nomEmploye, Employe.prenomEmploye, Employe.villeEmploye, Employe.codePostalEmploye, Employe.rueEmploye, Employe.mailEmploye, Employe.telEmploye, TypeEmploye.numeroTypeEmploye, TypeEmploye.libelleTypeEmploye "
+    maRequeteTableauGestionEmploye="SELECT Employe.numeroEmploye, Employe.loginEmploye, Employe.nomEmploye, Employe.prenomEmploye, "
+                                   "Employe.villeEmploye, Employe.codePostalEmploye, Employe.rueEmploye, Employe.mailEmploye, "
+                                   "Employe.telEmploye, TypeEmploye.numeroTypeEmploye, TypeEmploye.libelleTypeEmploye "
                                    "FROM Employe INNER JOIN TypeEmploye ON Employe.numeroTypeEmploye=TypeEmploye.numeroTypeEmploye "
                                    "WHERE numeroEmploye ="+ui->comboBoxEmploye->currentData().toString();
     qDebug()<<maRequeteTableauGestionEmploye;
@@ -833,8 +859,10 @@ void MainWindow::on_pushButtonModifierEmploye_clicked()
 {
     qDebug()<<"void MainWindow::on_pushButtonModifierEmploye_clicked()";
 
+    //Création des variables
     QString login,nom,prenom,ville,cp,rue,mail,tel,type;
 
+    //Affectation des entrées de l'utilisateur dans des variables pour
     login=ui->lineEditChangerLoginEmploye->text();
     nom=ui->lineEditChangerNomEmploye->text();
     prenom=ui->lineEditChangerPrenomEmploye->text();
@@ -845,10 +873,24 @@ void MainWindow::on_pushButtonModifierEmploye_clicked()
     tel=ui->lineEditChangerTelEmploye->text();
     type=ui->comboBoxChangerTypeUtilisateur->currentData().toString();
 
+    //Requête de modification de l'employé
     QString maRequeteModifierEmploye;
-    maRequeteModifierEmploye = "UPDATE Employe SET loginEmploye="+login+", "
-                               "nomEmploye="
-                               "WHERE numeroEmploye=";
+    maRequeteModifierEmploye = "UPDATE Employe "
+                               "SET loginEmploye='"+login+"',"
+                               "nomEmploye='"+nom+"',"
+                               "prenomEmploye='"+prenom+"',"
+                               "villeEmploye='"+ville+"',"
+                               "rueEmploye='"+rue+"',"
+                               "codePostalEmploye='"+cp+"',"
+                               "mailEmploye='"+mail+"',"
+                               "telEmploye='"+tel+"',"
+                               "numeroTypeEmploye="+type+" "
+                               "WHERE numeroEmploye="+ui->comboBoxEmploye->currentData().toString();
 
+    qDebug()<<maRequeteModifierEmploye;
+    QSqlQuery maRequete(maRequeteModifierEmploye);
+
+    //Réactualisation du tableau des employés
+    afficherTableauEmployes();
 }
 

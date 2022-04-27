@@ -33,19 +33,22 @@ QString DialogConnexion::getPrenom()
 }
 
 
+
 void DialogConnexion::on_pushButtonSeConnecter_clicked()
 {
+    //Récupération des champs
     QString login, mdp;
     login = ui->lineEditLogin->text();
     mdp = ui->lineEditMdp->text();
 
+    //Création des requêtes
     QString txtRequeteConnexion;
     txtRequeteConnexion="SELECT COUNT(*) FROM Employe WHERE loginEmploye='"+ ui->lineEditLogin->text() +"' AND mdpEmploye=PASSWORD('"+ ui->lineEditMdp->text() +"')";
 
     QString txtRequetePersonneConnectee;
     txtRequetePersonneConnectee="SELECT numeroEmploye, nomEmploye, prenomEmploye FROM Employe WHERE loginEmploye='"+ ui->lineEditLogin->text() +"' AND mdpEmploye=PASSWORD('"+ ui->lineEditMdp->text() +"')";
 
-
+    //Exécution des requêtes
     QSqlQuery requeteConnexion(txtRequeteConnexion);
     qDebug()<<txtRequeteConnexion;
 
@@ -56,10 +59,13 @@ void DialogConnexion::on_pushButtonSeConnecter_clicked()
 
     int testConnexion = requeteConnexion.value(0).toInt();
 
-
+    //Si il y a une personne correspondante dans la base alors on accepte
     if(testConnexion>0){
         accept();
-    }else{
+    }
+    //Sinon on affiche une erreur et on quitte le programme au bout de 3 essais
+    else
+    {
         ui->labelIncorrect->setVisible(1);
         ui->labelNbConnexions->setVisible(1);
         ui->labelNbConnexions->setText(QString::number(compteurConnexionsRestantes));
@@ -77,17 +83,15 @@ void DialogConnexion::on_pushButtonSeConnecter_clicked()
         compteurConnexions++;
         compteurConnexionsRestantes--;
 
+        //Si il y a 3 essais réalisés on quitte le programme
         if(compteurConnexions == 3){
             reject();
         }
     }
-
-
-
-
 }
 
 void DialogConnexion::on_pushButtonAnnuler_clicked()
 {
+    //Bouton pour quitter l'application
     reject();
 }

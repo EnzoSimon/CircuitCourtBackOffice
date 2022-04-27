@@ -28,6 +28,7 @@ private slots:
     void remplirComboVarieteDeProduit();
 
 
+
     void on_pushButtonVerifierProducteur_clicked();
 
     void on_tableWidgetTousProducteurs_cellClicked(int row, int column);
@@ -74,6 +75,8 @@ private slots:
     void on_pushButtonSupprimerEmploye_clicked();
 
     void on_pushButtonModifierEmploye_clicked();
+
+    void on_comboBoxTypeEmploye_editTextChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;
