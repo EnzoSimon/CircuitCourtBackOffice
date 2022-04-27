@@ -4,6 +4,7 @@
 #include <dialogconnexion.h>
 #include <QDebug>
 
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -14,8 +15,8 @@ int main(int argc, char *argv[])
     // Définition des paramètres de connexion à la base de données
     base.setHostName("localhost"); // @ip serveur MySQL
     base.setDatabaseName("db_circuitCourt"); // Nom de la base
-    base.setUserName("enzo"); // Nom utilisateur
-    base.setPassword("enzo123"); // Mot de passe
+    base.setUserName("admin"); // Nom utilisateur
+    base.setPassword("admin"); // Mot de passe
 
     bool ok = base.open();
     qDebug()<<ok;

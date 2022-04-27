@@ -26,6 +26,8 @@ private:
     Ui::DialogConnexion *ui;
     QString login, mdp;
     QString nom,prenom;
+    int compteurConnexions=0;
+    int compteurConnexionsRestantes=2;
 };
 
 #endif // DIALOGCONNEXION_H

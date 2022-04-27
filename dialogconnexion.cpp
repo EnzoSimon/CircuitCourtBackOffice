@@ -10,6 +10,11 @@ DialogConnexion::DialogConnexion(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->labelIncorrect->setVisible(0);
+    ui->labelNbConnexions->setVisible(0);
+    ui->labelConnexion->setVisible(0);
+    ui->labelAttention->setVisible(0);
+
+
 }
 
 DialogConnexion::~DialogConnexion()
@@ -51,12 +56,30 @@ void DialogConnexion::on_pushButtonSeConnecter_clicked()
 
     int testConnexion = requeteConnexion.value(0).toInt();
 
+
     if(testConnexion>0){
         accept();
     }else{
         ui->labelIncorrect->setVisible(1);
+        ui->labelNbConnexions->setVisible(1);
+        ui->labelNbConnexions->setText(QString::number(compteurConnexionsRestantes));
+
+        if(compteurConnexionsRestantes == 1){
+            ui->labelConnexion->setText("connexion restante ! --");
+        }
+
+        ui->labelConnexion->setVisible(1);
+        ui->labelAttention->setVisible(1);
+
         ui->lineEditLogin->setText("");
         ui->lineEditMdp->setText("");
+
+        compteurConnexions++;
+        compteurConnexionsRestantes--;
+
+        if(compteurConnexions == 3){
+            reject();
+        }
     }
 
 
